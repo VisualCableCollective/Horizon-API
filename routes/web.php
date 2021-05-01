@@ -27,4 +27,4 @@ Route::prefix('auth')->name('auth.')->group(function(){
     });
 });
 
-Broadcast::routes(['middleware' => ['auth:api']]);
+Broadcast::routes(['middleware' => ['auth:sanctum']]);
