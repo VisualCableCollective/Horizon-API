@@ -22,11 +22,9 @@ Route::get('/', function () {
 
 Route::prefix('auth')->name('auth.')->group(function(){
     Route::prefix('vcc')->name('vcc.')->group(function(){
-        Route::prefix('web-app')->name('web-app.')->group(function(){
-            Route::get('redirect', [\App\Http\Controllers\Auth\WebAppAuthController::class, 'redirect']);
-            Route::get('callback', [\App\Http\Controllers\Auth\WebAppAuthController::class, 'callback']);
-        });
+        Route::get('redirect', [\App\Http\Controllers\Auth\WebAppAuthController::class, 'redirect']);
+        Route::get('callback', [\App\Http\Controllers\Auth\WebAppAuthController::class, 'callback']);
     });
 });
 
-Broadcast::routes();
+Broadcast::routes(['middleware' => ['auth:api']]);

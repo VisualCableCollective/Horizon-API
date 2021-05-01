@@ -47,6 +47,8 @@ class WebAppAuthController extends Controller
             return $response;
         }
 
+        return ($Horizon_User->createToken("VTCManager WebApp")->plainTextToken);
+
         //redirect back to the VTCManager WebApp
         return redirect(
             config("services.vtcm-web-app.redirect").

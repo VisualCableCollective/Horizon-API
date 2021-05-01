@@ -33,7 +33,7 @@ return [
     'vcc' => [
         'client_id' => env('VCC_CLIENT_ID'),
         'client_secret' => env('VCC_CLIENT_SECRET'),
-        'redirect' => '/auth/vcc/web-app/callback',
+        'redirect' => 'http://computer.local:8000/auth/vcc/callback',
     ],
 
 ];
