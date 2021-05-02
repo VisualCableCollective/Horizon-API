@@ -22,8 +22,8 @@ Route::get('/', function () {
 
 Route::prefix('auth')->name('auth.')->group(function(){
     Route::prefix('vcc')->name('vcc.')->group(function(){
-        Route::get('redirect', [\App\Http\Controllers\Auth\WebAppAuthController::class, 'redirect']);
-        Route::get('callback', [\App\Http\Controllers\Auth\WebAppAuthController::class, 'callback']);
+        Route::get('redirect', [\App\Http\Controllers\Auth\VCCAuthController::class, 'redirect']);
+        Route::get('callback', [\App\Http\Controllers\Auth\VCCAuthController::class, 'callback']);
     });
 });
 
