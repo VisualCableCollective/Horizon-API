@@ -24,7 +24,10 @@ class VCCAuthController extends Controller
      */
     public static function redirect(AuthRedirectRequest $request){
         $validatedRequest = $request->validated();
-        setcookie('authWebsocketID', $validatedRequest["socketID"], 20, '/');
+        if (isset($_COOKIE['authWebsocketID'])) {
+            unset($_COOKIE['authWebsocketID']);
+        }
+        setcookie('authWebsocketID', $validatedRequest["socketID"], 0, '/');
         return Socialite::driver('vcc')->redirect();
     }
 
@@ -45,9 +48,9 @@ class VCCAuthController extends Controller
         //refresh the vcc API token
         //$Horizon_User->latest_vcc_api_token = $VCC_User->accessTokenResponseBody["access_token"];
         $Horizon_User->save();
-
         Auth::login($Horizon_User);
-        dd(Cookie::get('authWebsocketID'));
+
+        $websocketID = null;
         if($_COOKIE["authWebsocketID"])
             $websocketID = $_COOKIE["authWebsocketID"];
         setcookie('authWebsocketID', null); // delete cookie

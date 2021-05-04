@@ -19,10 +19,10 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
 
-Broadcast::channel('client.{socketID}', function($user, $socketID){
+/*Broadcast::channel('private-client.{socketID}', function($user, $socketID){
     $client_headers = getallheaders();
     Log::debug($client_headers["X-Socket-ID"]);
     if(!$client_headers["X-Socket-ID"])
         return false;
     return (int)$client_headers["X-Socket-ID"] === (int)$socketID;
-});
+});*/

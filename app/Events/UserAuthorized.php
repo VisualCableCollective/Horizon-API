@@ -9,6 +9,7 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use App\Models\User;
 
 class UserAuthorized implements ShouldBroadcast
 {
@@ -35,6 +36,16 @@ class UserAuthorized implements ShouldBroadcast
     {
         $this->user = $user;
         $this->socketID = $socketID;
+    }
+
+    /**
+     * The event's broadcast name.
+     *
+     * @return string
+     */
+    public function broadcastAs()
+    {
+        return 'user.authorized';
     }
 
     /**
