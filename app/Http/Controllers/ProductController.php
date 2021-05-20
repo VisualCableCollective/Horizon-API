@@ -14,7 +14,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        return response('',404);
     }
 
     /**
@@ -25,7 +25,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return response('',404);
     }
 
     /**
@@ -36,7 +36,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        $product->ownable;
+        return $product;
     }
 
     /**
@@ -48,7 +48,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        return response('',404);
     }
 
     /**
@@ -59,6 +59,6 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        return response('',404);
     }
 }
