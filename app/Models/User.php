@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+use App\Models\Store\Product;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -33,4 +35,12 @@ class User extends Authenticatable
     protected $attributes = [
         'latest_vcc_api_token' => ""
     ];
+
+    /**
+     * Get all of the products owned and created by the user.
+     */
+    public function products()
+    {
+        return $this->morphMany(Product::class, 'ownable');
+    }
 }
