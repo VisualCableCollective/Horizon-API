@@ -19,5 +19,5 @@ Route::middleware('auth:sanctum')->get('/user/me', function (Request $request) {
 });
 
 Route::prefix('store')->name('store.')->group(function(){
-    Route::resource('products', \App\Http\Controllers\ProductController::class);
+    Route::resource('products', \App\Http\Controllers\Store\ProductController::class);
 });
