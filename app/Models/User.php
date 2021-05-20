@@ -43,4 +43,12 @@ class User extends Authenticatable
     {
         return $this->morphMany(Product::class, 'ownable');
     }
+
+    /**
+     * The teams that the user is a member of.
+     */
+    public function teams()
+    {
+        return $this->belongsToMany(Team::class);
+    }
 }
