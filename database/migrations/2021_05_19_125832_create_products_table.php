@@ -17,8 +17,7 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name');
-            $table->bigInteger('ownable_id');
-            $table->string('ownable_type');
+            $table->morphs('ownable');
         });
     }
 
