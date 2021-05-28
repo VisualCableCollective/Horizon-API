@@ -20,6 +20,7 @@ Route::middleware('auth:sanctum')->get('/user/me', function (Request $request) {
 
 Route::prefix('store')->name('store.')->group(function(){
     Route::prefix('teams')->name('store.')->group(function(){
+        Route::get('{id}', [\App\Http\Controllers\Store\TeamController::class, 'show']);
         Route::get('{id}/products', [\App\Http\Controllers\Store\TeamController::class, 'products']);
     });
     Route::resource('products', \App\Http\Controllers\Store\ProductController::class);
