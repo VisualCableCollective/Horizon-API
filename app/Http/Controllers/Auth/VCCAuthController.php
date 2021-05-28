@@ -24,10 +24,14 @@ class VCCAuthController extends Controller
      */
     public static function redirect(AuthRedirectRequest $request){
         $validatedRequest = $request->validated();
-        if (isset($_COOKIE['authWebsocketID'])) {
-            unset($_COOKIE['authWebsocketID']);
+        if ($validatedRequest["method"] == "desktop-app") {
+            if (isset($_COOKIE['authWebsocketID'])) {
+                unset($_COOKIE['authWebsocketID']);
+            }
+            setcookie('authWebsocketID', $validatedRequest["socketID"], 0, '/');
+        }else if ($validatedRequest["method"] != "web-app") {
+            return response("", 400);
         }
-        setcookie('authWebsocketID', $validatedRequest["socketID"], 0, '/');
         return Socialite::driver('vcc')->redirect();
     }
 
@@ -51,20 +55,21 @@ class VCCAuthController extends Controller
         Auth::login($Horizon_User);
 
         $websocketID = null;
-        if($_COOKIE["authWebsocketID"])
+        if(array_key_exists("authWebsocketID", $_COOKIE)) {
             $websocketID = $_COOKIE["authWebsocketID"];
-        setcookie('authWebsocketID', null); // delete cookie
-        if($websocketID == null)
-            return response("An error occurred: WS_ID_MISSING_IN_COOKIE", 400);
+            \Cookie::queue(\Cookie::forget('authWebsocketID')); // delete cookie
+            if($websocketID == null)
+                return response("An error occurred: WS_ID_MISSING_IN_COOKIE", 400);
 
-        UserAuthorized::dispatch($Horizon_User, $websocketID);
+            UserAuthorized::dispatch($Horizon_User, $websocketID);
 
-        return response("", 204);
-
-        //redirect back to the VTCManager WebApp
-        return redirect(
-            config("services.vtcm-web-app.redirect").
-            "?token=".
-            urlencode($Horizon_User->createToken("VTCManager WebApp")->plainTextToken));
+            return response("", 204);
+        }else{
+            //redirect to the Horizon WebApp
+            return redirect(
+                "http://localhost:3000/auth".
+                "?token=".
+                urlencode($Horizon_User->createToken("Horizon WebApp")->plainTextToken));
+        }
     }
 }

@@ -24,7 +24,8 @@ class AuthRedirectRequest extends FormRequest
     public function rules()
     {
         return [
-            'socketID' => 'required'
+            'socketID' => 'string',
+            'method' => 'string|required'
         ];
     }
 }
