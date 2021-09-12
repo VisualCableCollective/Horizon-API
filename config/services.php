@@ -30,10 +30,4 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
-    'vcc' => [
-        'client_id' => env('VCC_CLIENT_ID'),
-        'client_secret' => env('VCC_CLIENT_SECRET'),
-        'redirect' => 'http://computer.local:8000/auth/vcc/callback',
-    ],
-
 ];
