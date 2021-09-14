@@ -34,10 +34,10 @@ class Team extends Model
     }
 
     /**
-     * Get all of the products owned and created by the team.
+     * Get all of the products created by the team.
      */
     public function products()
     {
-        return $this->morphMany(Product::class, 'ownable');
+        return $this->morphMany(Product::class, 'creator');
     }
 }

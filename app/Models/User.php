@@ -48,9 +48,9 @@ class User extends Authenticatable
     /**
      * Get all of the products owned and created by the user.
      */
-    public function products()
+    public function createdProducts()
     {
-        return $this->morphMany(Product::class, 'ownable');
+        return $this->morphMany(Product::class, 'creator');
     }
 
     /**
@@ -60,4 +60,13 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Team::class);
     }
+
+    /**
+     * The products that are owned by the user.
+     */
+    public function ownedProducts()
+    {
+        return $this->belongsToMany(Product::class);
+    }
+
 }

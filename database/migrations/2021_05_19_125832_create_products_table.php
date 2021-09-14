@@ -17,7 +17,13 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name');
-            $table->morphs('ownable');
+            $table->morphs('creator');
+            $table->text('store_banner_url')->nullable();
+        });
+
+        Schema::create('product_user', function (Blueprint $table) {
+            $table->bigInteger('user_id');
+            $table->bigInteger('product_id');
         });
     }
 
