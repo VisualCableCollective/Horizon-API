@@ -14,9 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user/me', function (Request $request) {
-    return $request->user();
-});
+Route::middleware('auth:api')->get('/user/me', [\App\Http\Controllers\UserController::class, 'show_authenticated']);
 
 Route::prefix('store')->name('store.')->group(function(){
     Route::prefix('teams')->name('store.')->group(function(){

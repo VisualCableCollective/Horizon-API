@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers\Store;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use App\Http\Requests\WithRelationshipsRequest;
 use App\Models\Store\Team;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -16,22 +15,11 @@ class TeamController extends Controller
      * @param int $id ID of the team
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, int $id)
+    public function show(WithRelationshipsRequest $request, int $id)
     {
-        $validated = $request->validate([
-            'with' => 'string|nullable'
-        ]);
+        $withRelationships = $request->getRequestedRelationships(['products']);
 
-        $withRelations = [];
-
-        if (isset($validated['with'])) {
-            $withParams = explode(',', $validated['with']);
-            if (in_array('products', $withParams)){
-                array_push($withRelations, 'products');
-            }
-        }
-
-        return Team::with($withRelations)->findorfail($id);
+        return Team::with($withRelationships)->findorfail($id);
     }
     /**
      * Display the products of the team.
